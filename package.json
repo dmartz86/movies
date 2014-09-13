@@ -1,0 +1,14 @@
+{
+  "name": "movies",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "jade": "*"
+  },
+  "author": "Daniel Martinez",
+  "license": "MIT"
+}

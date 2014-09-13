@@ -1,0 +1,61 @@
+.container(ng-controller='Movies')
+  .jumbotron
+    .row
+      h1 movies engine
+      p.col-md-12
+        input.col-md-6(ng-model='query')
+      p.col-md-3
+        a.btn.btn-primary.btn-lg(ng-click='get_author_list()') Search by author
+      p.col-md-4
+        input#include-adult(ng-model='include_adult', type='checkbox')
+        span &nbsp; Adult Content
+
+  .row(ng-show='authorList.length')
+    .col-md-12.box-actions
+      .col-md-9
+        .btn-group.btn-group-justified(ng-show='authorList.length > 11')
+          a.btn.btn-default(ng-repeat='(key,val) in paginator', ng-class='active')
+            span(ng-bind='key+1')
+
+      .col-md-3
+        .pull-right
+          .btn.btn-primary(ng-click='switch_movie_group("cast")') Cast View
+          .btn.btn-default(ng-click='switch_movie_group("crew")') Crew View
+
+    .col-md-4
+      .list-group.scrollable-list(ng-class='{"active": authorList.length > 11}')
+        a.list-group-item(ng-repeat='person in authorList')
+          span(ng-bind='person.name')
+
+    .col-md-8
+      .row-fluid.scrollable-list(ng-class='{"active": movieList.length > 3}')
+        .col-md-12(ng-repeat='movie in movieList')
+          .panel.panel-success
+            .panel-heading
+              .row
+                h3.col-md-9.panel-title(ng-bind='movie.title')
+                h3.col-md-3.panel-title(ng-bind='"Date: " + movie.release_date')
+            .panel-body
+              .row
+                .col-md-3
+                  image.profile-photo(ng-src='{{movie.poster_path}}')
+                .col-md-6
+                  .list-group
+                    a.list-group-item(ng-show='movie.department')
+                      h4.list-group-item-heading Department
+                      p.list-group-item-text(ng-bind='movie.department')
+                    a.list-group-item(ng-show='movie.character')
+                      h4.list-group-item-heading Character
+                      p.list-group-item-text(ng-bind='movie.character')
+                    a.list-group-item(ng-show='movie.job')
+                      h4.list-group-item-heading Job
+                      p.list-group-item-text(ng-bind='movie.job')
+                    a.list-group-item
+                      h4.list-group-item-heading Original Title
+                      p.list-group-item-text(ng-bind='movie.original_title')
+                .col-md-3
+                  .list-group
+                    a.list-group-item(href="")
+                      btn.btn-default(ng-click='get_movie(movie.id)') More
+                    a.list-group-item(href="")
+                      btn.btn-default(ng-click='get_credits(movie.credit_id)') Credits

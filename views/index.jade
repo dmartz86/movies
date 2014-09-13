@@ -1,0 +1,18 @@
+doctype html
+html(ng-app='MoviesApp')
+  head
+    title Seed App
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/css/custom.css')
+
+  body
+    include layouts/header
+    include content/moviedb
+    include layouts/footer
+
+    script(type='text/javascript', src='/js/libs/jquery.min.js')
+    script(type='text/javascript', src='/js/libs/angular.min.js')
+    script(type='text/javascript', src='/js/libs/bootstrap.min.js')
+    script(type='text/javascript', src='/js/ng/app.js')
+    script(type='text/javascript', src='/js/ng/movies.js')

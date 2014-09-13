@@ -1,0 +1,34 @@
+#include-adult {
+  height: 20px;
+  width:  20px;
+}
+
+.profile-photo {
+  height: 140px;
+  width:  140px;
+  border-radius: 5px;
+}
+
+.jumbotron {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+}
+
+.scrollable-list {
+  max-height: 490px;
+}
+
+.scrollable-list.active {
+  overflow-y: scroll;
+}
+
+.pagination {
+  margin: 0;
+}
+
+.box-actions {
+  margin-bottom: 10px;
+  padding-left: 0;
+  padding-right: 38px;
+}
