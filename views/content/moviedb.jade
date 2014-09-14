@@ -32,7 +32,7 @@
 
     .col-md-8
       .row-fluid.scrollable-list(ng-class='{"active": movieList.length > 3}')
-        .col-md-12(ng-repeat='movie in movieList')
+        .col-md-12(ng-repeat='movie in movieList | orderBy: datetime')
           .panel.panel-success
             .panel-heading
               .row

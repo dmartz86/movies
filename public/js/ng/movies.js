@@ -80,6 +80,9 @@ app.controller('Movies', function Movies($scope, $http, $timeout) {
   $scope.switch_movie_group = function(key) {
     $scope.movieGroup = key;
     $scope.movieList = $scope.movieListAll[key];
+    for(var idx in $scope.movieList){
+      $scope.movieList[idx].datetime = new Date($scope.movieList[idx].release_date).getTime(); 
+    }
   };
   
   $scope.change_page = function(page) {
