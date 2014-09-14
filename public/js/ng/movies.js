@@ -97,7 +97,7 @@ app.controller('Movies', function Movies($scope, $http, $timeout) {
 
   $scope.keyboard_listener = function(event){
     if(event.keyCode === 13){
-      $scope.get_author_list();
+      $scope.init();
     }
   };
 
