@@ -5,26 +5,34 @@
       p.col-md-12
         input.col-md-6(ng-model='query')
       p.col-md-3
-        a.btn.btn-primary.btn-lg(ng-click='get_author_list()') Search by author
+        a.btn.btn-primary.btn-lg(ng-click='get_author_list()'
+        , ng-disabled='!query') Search by author
       p.col-md-4
         input#include-adult(ng-model='include_adult', type='checkbox')
         span &nbsp; Adult Content
 
   .row(ng-show='authorList.length')
     .col-md-12.box-actions
-      .col-md-9
+      .col-md-8
         .btn-group.btn-group-justified(ng-show='authorList.length > 11')
-          a.btn.btn-default(ng-repeat='(key,val) in paginator', ng-class='active')
+          a.btn.btn-default(ng-repeat='(key,val) in paginator'
+          , ng-class='active')
             span(ng-bind='key+1')
 
-      .col-md-3
+      .col-md-4
         .pull-right
-          .btn.btn-primary(ng-click='switch_movie_group("cast")') Cast View
-          .btn.btn-default(ng-click='switch_movie_group("crew")') Crew View
+          .btn.btn-default(ng-click='switch_movie_group("cast")'
+          , ng-class='{"active": movieGroup == "cast"}' )
+            span(ng-bind="'Cast View (' + (movieListAll.cast.length || '0') + ')'")
+          .btn.btn-default(ng-click='switch_movie_group("crew")'
+          , ng-class='{"active": movieGroup == "crew"}' )
+            span(ng-bind="'Crew View (' + (movieListAll.crew.length || '0') + ')'")
 
     .col-md-4
       .list-group.scrollable-list(ng-class='{"active": authorList.length > 11}')
-        a.list-group-item(ng-repeat='person in authorList')
+        a.list-group-item(ng-repeat='person in authorList'
+        , ng-class='{"active": person.id == currentPerson.id}'
+        , ng-click='select_author(person)')
           span(ng-bind='person.name')
 
     .col-md-8
@@ -37,9 +45,10 @@
                 h3.col-md-3.panel-title(ng-bind='"Date: " + movie.release_date')
             .panel-body
               .row
-                .col-md-3
-                  image.profile-photo(ng-src='{{movie.poster_path}}')
-                .col-md-6
+                .col-md-3(ng-if='movie.poster_path')
+                  image.profile-photo(ng-src='{{configuration.images.base_url + configuration.images.poster_sizes[6] + movie.poster_path}}')
+                .col-md-3(ng-if='!movie.poster_path')
+                .col-md-9
                   .list-group
                     a.list-group-item(ng-show='movie.department')
                       h4.list-group-item-heading Department
@@ -53,9 +62,5 @@
                     a.list-group-item
                       h4.list-group-item-heading Original Title
                       p.list-group-item-text(ng-bind='movie.original_title')
-                .col-md-3
-                  .list-group
-                    a.list-group-item(href="")
-                      btn.btn-default(ng-click='get_movie(movie.id)') More
-                    a.list-group-item(href="")
-                      btn.btn-default(ng-click='get_credits(movie.credit_id)') Credits
+        .col-md-12(ng-show='!movieList.length')
+          .well.well-sm View has no elements
