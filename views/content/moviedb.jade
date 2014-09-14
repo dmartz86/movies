@@ -3,14 +3,14 @@
     .row
       h1 movies engine
       p.col-md-12
-        input.col-md-6(ng-model='query')
+        input.col-md-6#search-box(ng-model='query', ng-keyup="keyboard_listener($event)")
       p.col-md-3
         a.btn.btn-primary.btn-lg(ng-click='init()'
         , ng-disabled='!query') Search by author
       p.col-md-4
         input#include-adult(ng-model='include_adult', type='checkbox')
         span &nbsp; Adult Content
-  
+
   .row(ng-hide='authorList.length')
     .well.well-sm.no-results No results to display
   .row(ng-show='authorList.length')
