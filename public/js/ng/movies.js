@@ -11,6 +11,7 @@ app.controller('Movies', function Movies($scope, $http, $timeout) {
   $scope.currentPerson = null;
   $scope.configuration = {};
   $scope.movieGroup = 'cast';
+  $scope.currentPage = 1;
 
   var API = {
     "KEY": "be3d23840948a1d2124852356aefd638",
@@ -26,26 +27,30 @@ app.controller('Movies', function Movies($scope, $http, $timeout) {
       console.log(data || "Request failed", status);
     });
   };
-
+  
   $scope.get_author_list = function() {
     $http.get(API['URL'] + 'search/person'
       + '?api_key=' + API['KEY']
-      + '&query=' + $scope.query 
+      + '&query=' + $scope.query
+      + '&page=' + $scope.currentPage  
       + '&include_adult=' + $scope.include_adult)
     .success(function(data, status) {
       $scope.authorList = data.results;
-      /*$scope.authorList = sampleResponse.results;
-      $scope.page = sampleResponse.page;
-      $scope.total_pages = sampleResponse.total_pages;
-      $scope.total_results = sampleResponse.total_results;
-      $scope.paginator = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];*/
-      
+      $scope.page = data.page;
+      $scope.total_pages = data.total_pages;
+      $scope.total_results = data.total_results;
+      $scope.paginator = [];
+      for (var i=0; i < parseInt(data.total_pages); i++) {
+        $scope.paginator.push(i+1);
+      };
+        
       if($scope.authorList.length){
         $scope.currentPerson =  $scope.authorList[0];
         if($scope.currentPerson.id){
           $scope.get_movie_list($scope.currentPerson.id);
         }
       }
+      
     }).error(function(data, status) {
       console.log(data || "Request failed", status);
     });
@@ -72,9 +77,19 @@ app.controller('Movies', function Movies($scope, $http, $timeout) {
     });
   };
 
-  $scope.switch_movie_group= function(key) {
+  $scope.switch_movie_group = function(key) {
     $scope.movieGroup = key;
     $scope.movieList = $scope.movieListAll[key];
+  };
+  
+  $scope.change_page = function(page) {
+    $scope.currentPage = page;
+    $scope.get_author_list();
+  };
+  
+  $scope.init = function(){
+    $scope.currentPage = 1;
+    $scope.get_author_list();
   };
   
   $scope.get_configuration();

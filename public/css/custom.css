@@ -32,3 +32,7 @@
   padding-left: 0;
   padding-right: 38px;
 }
+
+.pagination li a {
+  min-width: 40px;
+}
