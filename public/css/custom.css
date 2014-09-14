@@ -36,3 +36,8 @@
 .pagination li a {
   min-width: 40px;
 }
+
+.no-results {
+  margin-left: 15px;
+  margin-right: 15px;
+}

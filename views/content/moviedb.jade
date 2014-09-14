@@ -10,7 +10,9 @@
       p.col-md-4
         input#include-adult(ng-model='include_adult', type='checkbox')
         span &nbsp; Adult Content
-
+  
+  .row(ng-hide='authorList.length')
+    .well.well-sm.no-results No results to display
   .row(ng-show='authorList.length')
     .col-md-12.box-actions
       .col-md-8
