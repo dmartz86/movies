@@ -1,4 +1,4 @@
-app.controller('Movies', function Movies($scope, $http) {
+app.controller('Movies', function Movies($scope, $http, $timeout) {
 
   $scope.authorList = [];
   $scope.query = "";
@@ -64,6 +64,9 @@ app.controller('Movies', function Movies($scope, $http) {
     .success(function(data, status) {
       $scope.movieListAll = data;
       $scope.switch_movie_group($scope.movieGroup);
+      $timeout(function(){
+        $( ".scrollable-list" ).scrollTop( 0 );
+      },100);
     }).error(function(data, status) {
       console.log(data || "Request failed", status);
     });
